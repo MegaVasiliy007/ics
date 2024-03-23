@@ -3,6 +3,7 @@ import setGeolocation from './set-geolocation'
 import setContact from './set-contact'
 import setOrganizer from './set-organizer'
 import setAlarm from './set-alarm'
+import setAppleStructuredLocation from './set-apple-structured-location';
 import setDescription from './set-description'
 import setSummary from './set-summary'
 import formatDuration from './format-duration'
@@ -16,6 +17,7 @@ export {
   setContact,
   setOrganizer,
   setAlarm,
+  setAppleStructuredLocation,
   formatDuration,
   setSummary,
   setDescription,

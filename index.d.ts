@@ -19,6 +19,11 @@ export type GeoCoordinates = {
   lon: number;
 };
 
+export type AppleStructuredLocation = {
+  title: string;
+  radius: number;
+}
+
 export type EventStatus = 'TENTATIVE' | 'CONFIRMED' | 'CANCELLED';
 
 export type ParticipationStatus =
@@ -94,6 +99,7 @@ export type EventAttributes = {
 
   location?: string;
   geo?: GeoCoordinates;
+  appleStructuredLocation?: AppleStructuredLocation;
 
   url?: string;
   status?: EventStatus;

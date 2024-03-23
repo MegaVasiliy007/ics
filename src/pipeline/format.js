@@ -7,6 +7,7 @@ import {
     setLocation,
     setSummary,
     setGeolocation,
+    setAppleStructuredLocation,
     formatDuration,
     foldLine
 } from '../utils'
@@ -53,6 +54,7 @@ export function formatEvent(attributes = {}) {
     url,
     geo,
     location,
+    appleStructuredLocation,
     status,
     categories,
     organizer,
@@ -89,6 +91,7 @@ export function formatEvent(attributes = {}) {
   icsFormat += url ? (foldLine(`URL:${encodeNewLines(url)}`) + '\r\n') : ''
   icsFormat += geo ? (foldLine(`GEO:${setGeolocation(geo)}`) + '\r\n') : ''
   icsFormat += location ? (foldLine(`LOCATION:${encodeNewLines(setLocation(location))}`) + '\r\n') : ''
+  icsFormat += appleStructuredLocation ? (foldLine(`X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-ADDRESS=${encodeNewLines(setLocation(location))};${encodeNewLines(setAppleStructuredLocation(appleStructuredLocation))}:geo:${geo.lat},${geo.lon}`) + '\r\n') : ''
   icsFormat += status ? (foldLine(`STATUS:${encodeNewLines(status)}`) + '\r\n') : ''
   icsFormat += categories ? (foldLine(`CATEGORIES:${encodeNewLines(categories.join(','))}`) + '\r\n') : ''
   icsFormat += organizer ? (foldLine(`ORGANIZER;${setOrganizer(organizer)}`) + '\r\n') : ''

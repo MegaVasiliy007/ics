@@ -98,6 +98,7 @@ const eventShape = {
   url: yup.string().matches(urlRegex),
   geo: yup.object().shape({lat: yup.number(), lon: yup.number()}),
   location: yup.string(),
+  appleStructuredLocation: yup.object().shape({ title: yup.string(), radius: yup.number() }),
   status: yup.string().matches(/^(TENTATIVE|CANCELLED|CONFIRMED)$/i),
   categories: yup.array().of(yup.string()),
   organizer: organizerSchema,
@@ -113,7 +114,9 @@ const eventShape = {
   htmlContent: yup.string()
 }
 
-const headerAndEventSchema = yup.object().shape({ ...headerShape, ...eventShape }).test('xor', `object should have end or duration (but not both)`, val => {
+const headerAndEventSchema = yup.object().shape({ ...headerShape, ...eventShape }).test('appleStructuredLocation', 'For appleStructuredLocation needs geo and location fields', val => {
+  return !val.appleStructuredLocation || (val.appleStructuredLocation && val.geo && val.location)
+}).test('xor', `object should have end or duration (but not both)`, val => {
   const hasEnd = !!val.end
   const hasDuration = !!val.duration
   return ((hasEnd && !hasDuration) || (!hasEnd && hasDuration) || (!hasEnd && !hasDuration))
